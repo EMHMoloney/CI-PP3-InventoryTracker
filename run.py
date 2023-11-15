@@ -26,7 +26,7 @@ def get_sales_input(product_titles, sheet_name):
     validates the data entered
     """
     while True:
-        sales_input = input(f"Please enter this weeks {sheet_name} sales for all items, separated by commas - ")
+        sales_input = input(f"Please enter this weeks {sheet_name} sales for all items, separated by commas - \n")
         try:
             sales_values = [int(sale) for sale in sales_input.split(',')]
         except ValueError:
@@ -71,7 +71,7 @@ def main():
     if shop_sales_values is not None:
         weekly_shop_sales = update_sales(shop_sales_worksheet, 
         shop_product_titles, shop_sales_values)
-        print(f"Weekly SHOP sales: {weekly_shop_sales}")
+        print(f"Weekly SHOP sales: \n {weekly_shop_sales}")
 
     etsy_sales_worksheet = SHEET.worksheet('etsy-sales')
     etsy_product_titles = get_product_titles(etsy_sales_worksheet)
@@ -80,11 +80,11 @@ def main():
     if etsy_sales_values is not None:
         weekly_etsy_sales = update_sales(etsy_sales_worksheet,
          etsy_product_titles, etsy_sales_values)
-        print(f"Weekly ETSY sales: {weekly_etsy_sales}")
+        print(f"Weekly ETSY sales: \n {weekly_etsy_sales}")
 
     total_sales_dicts = [weekly_shop_sales, weekly_etsy_sales]
     total_sales = calculate_total_sales(total_sales_dicts)
-    print(f"Total Sales: {total_sales}")
+    print(f"Total Sales This Week:  \n {total_sales}")
 
 
 main()
