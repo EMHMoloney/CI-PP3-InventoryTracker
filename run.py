@@ -26,8 +26,7 @@ def get_sales_input(product_titles, sheet_name):
     validates the data entered
     """
     while True:
-        sales_input = input(f"Please enter this weeks {sheet_name} 
-        sales for all items, separated by commas - ")
+        sales_input = input(f"Please enter this weeks {sheet_name} sales for all items, separated by commas - ")
         try:
             sales_values = [int(sale) for sale in sales_input.split(',')]
         except ValueError:
@@ -35,8 +34,7 @@ def get_sales_input(product_titles, sheet_name):
             continue
 
         if len(sales_values) != len(product_titles):
-            print("Please enter a sale value for each item -
-             'no sales' for an item is to be entered as 0.")
+            print("Please enter a sale value for each item -'no sales' for an item is to be entered as 0.")
             continue
 
         return sales_values
@@ -52,6 +50,14 @@ def update_sales(worksheet, product_titles, sales_values):
 
     return weekly_sales
 
+def calculate_total_sales(sales_dicts):
+    """
+    Totals sales from each input/sheet
+    """
+    total_sales = {}
+    for sales_dict in sales_dicts:
+        for product_title, sales_value in sales_dict.items():total_sales[product_title] = total_sales.get(product_title, 0) + sales_value
+    return total_sales
 
 def main():
     """
@@ -75,6 +81,10 @@ def main():
         weekly_etsy_sales = update_sales(etsy_sales_worksheet,
          etsy_product_titles, etsy_sales_values)
         print(f"Weekly ETSY sales: {weekly_etsy_sales}")
+
+    total_sales_dicts = [weekly_shop_sales, weekly_etsy_sales]
+    total_sales = calculate_total_sales(total_sales_dicts)
+    print(f"Total Sales: {total_sales}")
 
 
 main()
