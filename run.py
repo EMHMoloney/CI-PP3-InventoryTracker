@@ -12,24 +12,21 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('ci_pp3_inventorytracker')
 
 
-def get_product_titles(shop_sales):
+def get_product_titles(worksheet):
     """
     Retrieves product titles from first row
     of worksheet
     """
-    return shop_sales.row_values(1)
+    return worksheet.row_values(1)
 
 
-weekly_shop_sales = {}
-
-
-def get_sales_input(product_titles):
+def get_sales_input(product_titles, sheet_name):
     """
     Requests sale figures to be inputted from user,
     validates the data entered
     """
     while True:
-        sales_input = input("Please enter this weeks SHOP sales for all items, separated by commas - ")
+        sales_input = input(f"Please enter this weeks {sheet_name} sales for all items, separated by commas - ")
         try:
             sales_values = [int(sale) for sale in sales_input.split(',')]
         except ValueError:
@@ -43,17 +40,15 @@ def get_sales_input(product_titles):
         return sales_values
 
 
-def update_shop_sales(shop_sales, product_titles, sales_values):
+def update_sales(worksheet, product_titles, sales_values):
     """
-    Updates thes sheet being worked on with
+    Updates the sheet being worked on with
     validated sales figures from user
     """
-    weekly_shop_sales = {}
+    worksheet.append_row(sales_values, value_input_option='USER_ENTERED')
+    weekly_sales = dict(zip(product_titles, sales_values))
 
-    shop_sales.append_row(sales_values, value_input_option='USER_ENTERED')
-    weekly_shop_sales = dict(zip(product_titles, sales_values))
-
-    return weekly_shop_sales
+    return weekly_sales
 
 
 def main():
@@ -61,13 +56,21 @@ def main():
     Calls functions, passes data to them
     to execute program
     """
-    shop_sales = SHEET.worksheet('shop-sales')
-    product_titles = get_product_titles(shop_sales)
+    shop_sales_worksheet = SHEET.worksheet('shop-sales')
+    shop_product_titles = get_product_titles(shop_sales_worksheet)
+    shop_sales_values = get_sales_input(shop_product_titles, "SHOP")
 
-    sales_values = get_sales_input(product_titles)
-    if sales_values is not None:
-        weekly_shop_sales = update_shop_sales(shop_sales, product_titles, sales_values)
-        print(f"Weekly SHOP sales:  \n")
-        print(weekly_shop_sales)
+    if shop_sales_values is not None:
+        weekly_shop_sales = update_sales(shop_sales_worksheet, shop_product_titles, shop_sales_values)
+        print(f"Weekly SHOP sales: {weekly_shop_sales}")
+
+    etsy_sales_worksheet = SHEET.worksheet('etsy-sales')
+    etsy_product_titles = get_product_titles(etsy_sales_worksheet)
+    etsy_sales_values = get_sales_input(etsy_product_titles, "ETSY")
+
+    if etsy_sales_values is not None:
+        weekly_etsy_sales = update_sales(etsy_sales_worksheet, etsy_product_titles, etsy_sales_values)
+        print(f"Weekly ETSY sales: {weekly_etsy_sales}")
+
 
 main()
