@@ -13,11 +13,20 @@ SHEET = GSPREAD_CLIENT.open('ci_pp3_inventorytracker')
 
 
 def get_product_titles(shop_sales):
+    """
+    Retrieves product titles from first row
+    of worksheet
+    """
     return shop_sales.row_values(1)
+
 
 weekly_shop_sales = {}
 
 def get_sales_input(product_titles):
+    """
+    Requests sale figures to be inputted from user,
+    validates the data entered
+    """
     sales_input = input("Please enter this weeks SHOP sales for all items, seperated by commas - ")
     sales_values = [int(sale) for sale in sales_input.split(',')]
 
@@ -34,6 +43,10 @@ def get_sales_input(product_titles):
     return sales_values
 
 def update_shop_sales(shop_sales, product_titles, sales_values):
+    """
+    Updates thes sheet being worked on with
+    validated sales figures from user
+    """
     weekly_shop_sales = {} 
 
     shop_sales.append_row(sales_values, value_input_option = 'USER_ENTERED')
@@ -43,6 +56,10 @@ def update_shop_sales(shop_sales, product_titles, sales_values):
 
 
 def main ():
+    """
+    Calls functions, passes data to them 
+    to execute program
+    """
     shop_sales = SHEET.worksheet('shop-sales')
     product_titles = get_product_titles(shop_sales)
 
