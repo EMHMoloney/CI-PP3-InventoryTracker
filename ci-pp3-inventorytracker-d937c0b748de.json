@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ci-pp3-inventorytracker",
+  "private_key_id": "d937c0b748de1ff762bb6e4c8cb55932097572b3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCtFiWvZ+UNKGLS\n1WDL0ccLgrE+PcAjI8ey6Lu7voLHHeBMnOvCJ93UsRrrUCVgtcUiDgqXK2cAF8sT\nCHVe1Aelt/NkBDdscJm2A23vY0SWi0UDgKLq0ihpdsMCDls+sXVZXY4u1aQlBKgZ\nU3mxctDb+Z7luxuEt12ORNLgQ/I5N9BTpROS4L5AbwZu3tF+VKtKaWgzh2v3Bb5L\n4W/823u1Qdr79+UoBmsH1gsIdARZWFh5k1eiwjfsVClv4tBLnuvz4jXeRm7eTMqz\nKSEhvokMbZNO1XLrAbefnn5qqHkPg29qLb3Foy84tXHq51zkpwF36VbkpX6687+P\nPOGa1ajDAgMBAAECggEASaDmtgeNpbu80jAHxZw+vlRBnpb5EVmqnR4oohRIIHjC\njgSgu45m7I/MQjZtOAcKzVJIygaiAaWdcsLB3u12NVYbeLvcccoycP1jehZxulKT\nMIq7gwWUQEzPZqQBx5kIsNO95IloEoE5GtDqLwSG+VRl9hbSfXHdH+SCCfmNZC35\nRLdxVe6hW8MVAMUTMD3n6N0+tpsjTBIvfrP3LRfHIzDbLVXeadW+kJkOi0ek5TYf\nHOkZ6XHpc8GvKcHjFT+bCoBji0xP+148HumYwcLYhAjhPZk2PnfE3XUhUNDWlZKh\nfu5sCUsBO5q/FKcLOBNZ0IkpgRfflF4OuPMVugx/ZQKBgQDZzVLB5vLTOgosY9rA\neXgruY3n49axkSZo8T88xB51fb1M97oi47ndhbmOs6IFR+bXXibvceuoZj1H+SXJ\nYSAcTOesvQESBDGmRDTQugwXHY4Xu2CnKVnP5Wz1f3Q/3Ev1q5/GsfwjzpoTzTyd\n8cwr56Bl5X8GuveO56LiDc+ArwKBgQDLcToZYyp62/c/x5F2Tk7tWzqg89wueqqy\nksI2TBwWCyWjkjp27hX1OnPzGhcw5j9uwoFgmKQaRdwVqKoOmJkBuXyuhAAGsGMT\nO5yi1byuZKM0dfPgdjl1CIR07IZfcTdiE0sVTeOLanALU1fkO+JcR420qM1FXm/o\n35l1ncMWLQKBgE4Rlb9hC9sAq9Lbe/aP065AlYfwF+2P7KejCZq7ZXuRtX/YMAT/\ngYjQvQFUjBe+fRTnb6dWOzUiaIba3FuBj+P1APneyXpuvGkve4rxlRHYCy2ggXWJ\nkeK+Br88jyuwyB1oBh5Pf+RJ0tqUL00h9aArJ0g+6bg83i2AA9dpQd6LAoGAHW/9\n0yyZOfvYM/9hmffMzeWUfzOqGYOgbYR027x5l+r3AEspcIoU3U4e9v9Aec/nP9Sf\nOeX8YNzY8r1cFg6YnTpEw0/QXSdqvp6ylJFO4wEm6HFk34bb24Zm/DA5ZVgRhnx6\nMdP6Z/L30Xu2zQypPWcRJyIBydbXZJ/uKamxT+UCgYBi9TmMhv/rtrqv4nIqSq8d\n45ci6Yy8wfe1AxT06Ddo3dzxEhMadwYs4mlfIFYytxbTLIsIT87wu6wo5nkYt0gm\nDQ0S/4HX5AQJfG0NVatw5KBPPm5ODE6p1H/zt0wi1AGylmsTgRzrI4HxWVrIMN0f\nH+FBsLJ63sWikOMfIMjaWQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "ci-pp3-inventorytracker@ci-pp3-inventorytracker.iam.gserviceaccount.com",
+  "client_id": "102160678698931206099",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ci-pp3-inventorytracker%40ci-pp3-inventorytracker.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
