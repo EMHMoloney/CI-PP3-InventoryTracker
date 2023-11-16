@@ -27,8 +27,8 @@ def get_sales_input(product_titles, sheet_name):
     validates the data entered
     """
     while True:
-        sales_input = input(f"Please enter this weeks {sheet_name} sales
-                            for all 12 items, separated by commas - \n")
+        sales_input = input(f"Please enter this weeks {sheet_name} sales"
+                            " for all 12 items, separated by commas - \n")
         try:
             sales_values = [int(sale) for sale in sales_input.split(',')]
         except ValueError:
@@ -36,8 +36,8 @@ def get_sales_input(product_titles, sheet_name):
             continue
 
         if len(sales_values) != len(product_titles):
-            print("Please enter a sale value for each item -
-                  'no sales' for an item is to be entered as 0.")
+            print("Please enter a sale value for each item -"
+                  "'no sales' for an item is to be entered as 0.")
             continue
 
         return sales_values
@@ -61,8 +61,8 @@ def calculate_total_sales(sales_dicts):
     total_sales = {}
     for sales_dict in sales_dicts:
         for product_title, sales_value in sales_dict.items():
-            total_sales[product_title] = total_sales.get(product_title, 0) +
-            sales_value
+            total_sales[product_title] = total_sales.get(product_title, 0)\
+                + sales_value
     return total_sales
 
 
@@ -97,6 +97,9 @@ def update_inventory(worksheet, product_titles, total_sales):
         worksheet.update_cell(last_row, index + 1, new_num)
 
         inventory_updated[title] = new_num
+
+        if new_num < 10:
+            print(f"{title}running low-replenishment required")
 
     return inventory_updated
 
