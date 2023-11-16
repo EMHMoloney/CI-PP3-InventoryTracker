@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
+# Scope and credentials code from Love Sandwiches walkthrough
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -26,7 +27,8 @@ def get_sales_input(product_titles, sheet_name):
     validates the data entered
     """
     while True:
-        sales_input = input(f"Please enter this weeks {sheet_name} sales for all 12 items, separated by commas - \n")
+        sales_input = input(f"Please enter this weeks {sheet_name} sales
+                            for all 12 items, separated by commas - \n")
         try:
             sales_values = [int(sale) for sale in sales_input.split(',')]
         except ValueError:
@@ -34,7 +36,8 @@ def get_sales_input(product_titles, sheet_name):
             continue
 
         if len(sales_values) != len(product_titles):
-            print("Please enter a sale value for each item -'no sales' for an item is to be entered as 0.")
+            print("Please enter a sale value for each item -
+                  'no sales' for an item is to be entered as 0.")
             continue
 
         return sales_values
@@ -50,18 +53,22 @@ def update_sales(worksheet, product_titles, sales_values):
 
     return weekly_sales
 
+
 def calculate_total_sales(sales_dicts):
     """
     Totals sales from each input/sheet
     """
     total_sales = {}
     for sales_dict in sales_dicts:
-        for product_title, sales_value in sales_dict.items():total_sales[product_title] = total_sales.get(product_title, 0) + sales_value
+        for product_title, sales_value in sales_dict.items():
+            total_sales[product_title] = total_sales.get(product_title, 0) +
+            sales_value
     return total_sales
+
 
 def update_inventory(worksheet, product_titles, total_sales):
     """
-    Updates inventory shett by subtracting 
+    Updates inventory shett by subtracting
     total sales from stock to create
     running total
     """
@@ -89,9 +96,10 @@ def update_inventory(worksheet, product_titles, total_sales):
 
         worksheet.update_cell(last_row, index + 1, new_num)
 
-        inventory_updated [title] = new_num
+        inventory_updated[title] = new_num
 
     return inventory_updated
+
 
 def main():
     """
@@ -103,8 +111,9 @@ def main():
     shop_sales_values = get_sales_input(shop_product_titles, "SHOP")
 
     if shop_sales_values is not None:
-        weekly_shop_sales = update_sales(shop_sales_worksheet, 
-        shop_product_titles, shop_sales_values)
+        weekly_shop_sales = update_sales(shop_sales_worksheet,
+                                         shop_product_titles,
+                                         shop_sales_values)
         print(f"Weekly SHOP sales: \n {weekly_shop_sales}\n")
 
     etsy_sales_worksheet = SHEET.worksheet('etsy-sales')
@@ -113,7 +122,8 @@ def main():
 
     if etsy_sales_values is not None:
         weekly_etsy_sales = update_sales(etsy_sales_worksheet,
-         etsy_product_titles, etsy_sales_values)
+                                         etsy_product_titles,
+                                         etsy_sales_values)
         print(f"Weekly ETSY sales: \n {weekly_etsy_sales}\n")
 
     total_sales_dicts = [weekly_shop_sales, weekly_etsy_sales]
@@ -123,7 +133,9 @@ def main():
     inventory_worksheet = SHEET.worksheet('inventory')
     inventory_product_titles = get_product_titles(inventory_worksheet)
 
-    inventory_updated = update_inventory(inventory_worksheet, inventory_product_titles, total_sales)
+    inventory_updated = update_inventory(inventory_worksheet,
+                                         inventory_product_titles, total_sales)
     print(f"Inventory Updated: \n {inventory_updated}\n")
+
 
 main()
