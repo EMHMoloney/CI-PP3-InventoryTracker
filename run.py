@@ -36,7 +36,7 @@ def get_sales_input(product_titles, sheet_name):
             continue
 
         if len(sales_values) != len(product_titles):
-            print("Please enter a sale value for each item -"
+            print("Please enter a sale value for each item only-"
                   "'no sales' for an item is to be entered as 0.")
             continue
 
