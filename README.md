@@ -17,7 +17,8 @@
  ### Credentials and Dependencies
 
  The credentials req to access the Google Sheets API for the app are
- located in a .json file called 'credentials'.
+ located in a .json file called 'creds'.
+ 
   Dependencies are in the 'requirements.txt' file, to be installed using 
   'pip install' method.
 
