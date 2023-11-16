@@ -73,6 +73,7 @@ def update_inventory(worksheet, product_titles, total_sales):
     running total
     """
     inventory_updated = {}
+    print("inventory is being updated, please wait....")
 
     for title in product_titles:
         index = product_titles.index(title)
