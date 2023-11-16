@@ -26,7 +26,7 @@ def get_sales_input(product_titles, sheet_name):
     validates the data entered
     """
     while True:
-        sales_input = input(f"Please enter this weeks {sheet_name} sales for all items, separated by commas - \n")
+        sales_input = input(f"Please enter this weeks {sheet_name} sales for all 12 items, separated by commas - \n")
         try:
             sales_values = [int(sale) for sale in sales_input.split(',')]
         except ValueError:
@@ -59,6 +59,40 @@ def calculate_total_sales(sales_dicts):
         for product_title, sales_value in sales_dict.items():total_sales[product_title] = total_sales.get(product_title, 0) + sales_value
     return total_sales
 
+def update_inventory(worksheet, product_titles, total_sales):
+    """
+    Updates inventory shett by subtracting 
+    total sales from stock to create
+    running total
+    """
+    inventory_updated = {}
+
+    for title in product_titles:
+        index = product_titles.index(title)
+
+        if index < 0:
+            print(f"{index} is not in items.")
+            continue
+
+        last_row = len(worksheet.col_values(index + 1))
+        while last_row > 0 and worksheet.cell(last_row, index + 1).value == "":
+            last_row -= 1
+
+        previous_num_cell = worksheet.cell(last_row, index + 1)
+        previous_num = previous_num_cell.value
+
+        if previous_num is None:
+            print(f"{title} previous cell is empty")
+            continue
+
+        new_num = int(previous_num) - total_sales.get(title, 0)
+
+        worksheet.update_cell(last_row, index + 1, new_num)
+
+        inventory_updated [title] = new_num
+
+    return inventory_updated
+
 def main():
     """
     Calls functions, passes data to them
@@ -71,7 +105,7 @@ def main():
     if shop_sales_values is not None:
         weekly_shop_sales = update_sales(shop_sales_worksheet, 
         shop_product_titles, shop_sales_values)
-        print(f"Weekly SHOP sales: \n {weekly_shop_sales}")
+        print(f"Weekly SHOP sales: \n {weekly_shop_sales}\n")
 
     etsy_sales_worksheet = SHEET.worksheet('etsy-sales')
     etsy_product_titles = get_product_titles(etsy_sales_worksheet)
@@ -80,11 +114,16 @@ def main():
     if etsy_sales_values is not None:
         weekly_etsy_sales = update_sales(etsy_sales_worksheet,
          etsy_product_titles, etsy_sales_values)
-        print(f"Weekly ETSY sales: \n {weekly_etsy_sales}")
+        print(f"Weekly ETSY sales: \n {weekly_etsy_sales}\n")
 
     total_sales_dicts = [weekly_shop_sales, weekly_etsy_sales]
     total_sales = calculate_total_sales(total_sales_dicts)
-    print(f"Total Sales This Week:  \n {total_sales}")
+    print(f"Total Sales This Week:  \n {total_sales}\n")
 
+    inventory_worksheet = SHEET.worksheet('inventory')
+    inventory_product_titles = get_product_titles(inventory_worksheet)
+
+    inventory_updated = update_inventory(inventory_worksheet, inventory_product_titles, total_sales)
+    print(f"Inventory Updated: \n {inventory_updated}\n")
 
 main()
